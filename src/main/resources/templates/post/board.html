@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymleaf.org">
+<head>
+
+    <title>Trello</title>
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}"></link>
+    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+
+</head>
+
+<body>
+<div class="list-wrapper">
+    <div th:each="list : ${lists}" class="list">
+        <div class="header">
+            <div th:text="${list.title}" class="title">title</div>
+        </div>
+        <div class="cards">
+            <div th:each="card : ${list.cards}" class="card">
+                <div th:text="${card.title}" class="card-title">title</div>
+            </div>
+            <div class="composer">
+                <input type="text" name="title" placeholder="Add a card" />
+                <div>
+                    <input type="submit" value="Add" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="add-list">
+        <form id="save" method="post">
+            <input type="text" name="title" placeholder="Add a list..."/>
+            <div>
+                <input type="submit" value="save"/>
+            </div>
+        </form>
+    </div>
+
+
+
+
+</div>
+
+<script type="listTemplate" id="listTemplate">
+    <div class="header">
+        <div class="title">{{title}}</div>
+    </div>
+    <div class="cards">
+        <div class="card">
+            <div class="card-title"></div>
+        </div>
+        <div class="composer">
+            <input type="text" name="title" placeholder="Add a card" />
+            <div>
+                <input type="submit" value="Add" />
+            </div>
+        </div>
+    </div>
+</script>
+</body>
+</html>

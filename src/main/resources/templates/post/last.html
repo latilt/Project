@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymleaf.org">
+<head>
+
+    <title>Trello</title>
+    <link rel="stylesheet" href="../static/css/core.css" th:href="@{/css/core.css}"></link>
+    <script src="../static/js/core.js" th:src="@{/js/core.js}"></script>
+
+    <!--link rel="stylesheet" href="https://d78fikflryjgj.cloudfront.net/css/32375d513faf55402ba5fe571690f1cf/core.css" onerror="_failed(this)"-->
+
+</head>
+
+<body>
+
+<div id="surface">
+    <div id="header"></div>
+    <div id="content">
+        <div class="board-wrapper">
+            <div class="board-main-content">
+                <div class="board-header u-clearfix js-board-header"></div>
+                <div class="board-canvas">
+                    <div id="board" class="u-fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable">
+
+                        <div th:each="list : ${lists}" class="js-list list-wrapper">
+                            <div class="list js-list-content">
+                                <div class="list-header js-list-header u-clearfix is-menu-shown is-subscribe-shown">
+                                    <div class="list-header-target js-editing-target"></div>
+                                    <h2 th:text="${list.title}" class="list-header-name-assist js-list-name-assist" dir="auto">title</h2>
+                                    <textarea th:text="${list.title}" class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">list1</textarea>
+                                    <p class="list-header-num-cards hide js-num-cards">0 cards</p>
+                                    <div class="list-header-extras">
+                                        <span class="list-header-extras-subscribe js-list-subscribed hide">
+                                            <span class="icon-sm icon-subscribe"></span>
+                                        </span>
+                                        <a class="list-header-extras-menu dark-hover js-open-list-menu" href="#">
+                                            <span class="icon-sm icon-overflow-menu-horizontal"></span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="list-cards u-fancy-scrollbar u-clearfix js-list-cards js-sortable ui-sortable">
+                                    <div th:each="card : ${list.cards}" class="list-card js-member-droppable ui-droppable active-card">
+                                        <div class="list-card-cover js-card-cover"></div>
+                                        <span class="icon-sm icon-edit list-card-operation dark-hover js-open-quick-card-editor js-card-menu"></span>
+                                        <div class="list-card-stickers-area hide">
+                                            <div class="stickers js-card-stickers"></div>
+                                        </div>
+                                        <div class="list-card-details">
+                                            <div class="list-card-labels js-card-labels"></div>
+                                            <a th:text="${card.title}" class="list-card-title js-card-name" dir="auto" href="/c/7j9jqUUZ/1-card1">title</a>
+                                            <div class="badges">
+                                                <span class="js-badges"></span>
+                                                <span class="js-plugin-badges">
+                                                    <span></span>
+                                                </span>
+                                            </div>
+                                            <div class="list-card-members js-list-card-members"></div>
+                                        </div>
+                                        <p class="list-card-dropzone">Drop files to upload.</p>
+                                    </div>
+                                </div>
+                                <a class="open-card-composer js-open-card-composer" href="#">Add a card…</a>
+                            </div>
+                        </div>
+
+
+                        <div class="js-add-list list-wrapper mod-add is-idle">
+
+
+                            <form>
+                                <span class="placeholder js-open-add-list">Add a list…</span>
+                                <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512" />
+                                <div class="list-add-controls u-clearfix">
+                                    <input class="primary mod-list-add-button js-save-edit" type="submit" value="Save"/>
+                                    <a class="icon-lg icon-close dark-hover js-cancel-edit" href="#"></a>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="window-overlay">
+    <div class="window">
+        <a class="focus-dummy" href="#"></a>
+        <div class="window-wrapper"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+.list-wrapper > * {
+    float: left;
+}
+
+.list {
+    width: 150px;
+    margin: 10px;
+    border: 1px solid gray;
+}
+
+.add-list {
+    width: 150px;
+    margin: 10px;
+    border: 1px solid black;
+}
+
+.title {
+    border: 1px solid red;
+}
+
+.card-title {
+    border: 1px solid blue;
+}
