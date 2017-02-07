@@ -11,35 +11,34 @@
 </head>
 
 <body>
-<div class="list-wrapper">
-    <div th:each="list : ${lists}" class="list">
-        <div class="header">
-            <div th:text="${list.title}" class="title">title</div>
-        </div>
-        <div class="cards">
-            <div th:each="card : ${list.cards}" class="card">
-                <div th:text="${card.title}" class="card-title">title</div>
+<div th:each="board : ${boards}">
+    <div th:text="${board.title}">title</div>
+    <div class="list-wrapper">
+        <div th:each="list : ${board.lists}" class="list">
+            <div class="header">
+                <div th:text="${list.title}" class="title">title</div>
             </div>
-            <div class="composer">
-                <input type="text" name="title" placeholder="Add a card" />
-                <div>
-                    <input type="submit" value="Add" />
+            <div class="cards">
+                <div th:each="card : ${list.cards}" class="card">
+                    <div th:text="${card.title}" class="card-title">title</div>
+                </div>
+                <div class="composer">
+                    <input class="add-title" type="text" name="title" placeholder="Add a card" />
+                    <div>
+                        <input class="add-card" type="submit" value="Add" />
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="add-list">
+            <form id="save" method="post">
+                <input type="text" name="title" placeholder="Add a list..."/>
+                <div>
+                    <input type="submit" value="save"/>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="add-list">
-        <form id="save" method="post">
-            <input type="text" name="title" placeholder="Add a list..."/>
-            <div>
-                <input type="submit" value="save"/>
-            </div>
-        </form>
-    </div>
-
-
-
-
 </div>
 
 <script type="listTemplate" id="listTemplate">
@@ -47,13 +46,10 @@
         <div class="title">{{title}}</div>
     </div>
     <div class="cards">
-        <div class="card">
-            <div class="card-title"></div>
-        </div>
         <div class="composer">
-            <input type="text" name="title" placeholder="Add a card" />
+            <input class="add-title" type="text" name="title" placeholder="Add a card" />
             <div>
-                <input type="submit" value="Add" />
+                <input class="add-card" type="submit" value="Add" />
             </div>
         </div>
     </div>

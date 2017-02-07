@@ -1,9 +1,8 @@
 package com.example.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 /**
  * Created by hokyeong on 2017. 2. 5..
@@ -14,10 +13,10 @@ public class Card {
     @Id @GeneratedValue
     private int id;
     private String title;
+    private int position;
 
-    @ManyToOne
+    @ManyToOne @JsonIgnore//@JoinColumn(referencedColumnName = "position")
     private Lists lists;
-
 
     public Lists getLists() {
         return lists;
@@ -25,6 +24,17 @@ public class Card {
 
     public void setLists(Lists lists) {
         this.lists = lists;
+    }
+
+    @ManyToOne @JsonIgnore
+    private Board board;
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public int getId() {
@@ -41,5 +51,13 @@ public class Card {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

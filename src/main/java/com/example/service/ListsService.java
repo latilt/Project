@@ -28,5 +28,9 @@ public class ListsService {
         return listsRepository.save(lists);
     }
 
+    public Lists find(Integer integer) {
+        return listsRepository.findOne(integer);
+    }
+
 
 }

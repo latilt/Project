@@ -1,24 +1,32 @@
 package com.example.controller;
 
+import com.example.domain.Board;
+import com.example.domain.Card;
 import com.example.domain.Lists;
+import com.example.service.BoardService;
+import com.example.service.CardService;
 import com.example.service.ListsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by hokyeong on 2017. 2. 5..
  */
-@RestController
+@Controller
 public class HomeController {
 
-
-   private ListsService listsService;
+    private BoardService boardService;
+    private ListsService listsService;
+    private CardService cardService;
 
    @Autowired
-   public HomeController(ListsService listsService) {
+   public HomeController(BoardService boardService, ListsService listsService, CardService cardService) {
+       this.boardService = boardService;
        this.listsService = listsService;
+       this.cardService = cardService;
    }
 
     @RequestMapping("/addlist")
@@ -28,17 +36,26 @@ public class HomeController {
         return listsData;
     }
 
-    @RequestMapping(value ="/board/list/save", method= RequestMethod.POST)
-    public String view(Lists lists) {
-        listsService.add(lists);
+
+
+    /*@RequestMapping(value ="/board/list/card", method= RequestMethod.POST)
+    public String addCard(@RequestParam("title") String title, @RequestParam("number") String number) {
+
+        Card card = new Card();
+        card.setTitle(title);
+        card.setLists(listsService.find(Integer.parseInt(number)));
+        System.out.println(number);
+
+        cardService.add(card);
+        System.out.println(card.getTitle());
+
         return "Save Done";
-    }
+    }*/
 
 
-
-    @RequestMapping("/")
+    @RequestMapping("/{id}")
     public String index() {
-        return "hellowworld!";
+        return "index";
     }
 
 }

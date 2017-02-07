@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.domain.Card;
 import com.example.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,9 @@ public class CardService {
     @Autowired
     public CardService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
+    }
+
+    public Card add(Card card) {
+       return cardRepository.save(card);
     }
 }

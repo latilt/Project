@@ -39,3 +39,45 @@ MySql
 
 - List add 동작 구현
 ```
+###### 2월 7일
+```
+데이타 구조 변경
+before : List(one) - Card(many)
+after : Board(one) - List(many)
+        Board(one) - Card(many)
+        
+Board
+id - primary key
+title
+
+
+List
+id - primary key
+title
+position - not null
+board_id - foreign key
+
+Card
+id - primary key
+title
+position
+list_position - foreign key
+board_id - foreign key
+```
+
+```
+크롱과 상담
+백엔드 단에서의 동적 페이지 구축 최소화
+웹페이지의 랜더링은 클라이언트 측에 json 파일로 자료를 넘겨줘서 구축
+
+apiController 추가
+웹페이지 로딩시 해당하는 보드의 json 파일 전송
+클라이언트 측에서 랜더링 성공 - 지속적인 수정
+
+card add 동작 구현
+```
+
+###### 2월 8일
+```
+list와 card 추가 시 해당하는 포지션 값 추가 방법 모색
+```

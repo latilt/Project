@@ -13,5 +13,9 @@ import java.util.List;
 public interface ListsRepository extends CrudRepository<Lists, Integer>{
     List<Lists> findAll();
 
+    //List<Lists> findAllOrderByPositionDesc(Integer position);
+
     Lists save(Lists lists);
+
+    Lists findOne(Integer integer);
 }

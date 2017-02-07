@@ -1,9 +1,8 @@
 package com.example.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -16,9 +15,11 @@ public class Lists {
 
     private String title;
 
-    @OneToMany( mappedBy = "lists")
-    private List<Card> cards;
+    @Column(nullable = false)
+    private int position;
 
+    @OneToMany( mappedBy = "lists") //@JsonIgnore
+    private List<Card> cards;
 
     public List<Card> getCards() {
         return cards;
@@ -26,6 +27,17 @@ public class Lists {
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    @ManyToOne @JsonIgnore
+    private Board board;
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public int getId() {
@@ -42,5 +54,14 @@ public class Lists {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }
