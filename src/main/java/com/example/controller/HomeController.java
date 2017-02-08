@@ -36,8 +36,6 @@ public class HomeController {
         return listsData;
     }
 
-
-
     /*@RequestMapping(value ="/board/list/card", method= RequestMethod.POST)
     public String addCard(@RequestParam("title") String title, @RequestParam("number") String number) {
 
@@ -56,6 +54,11 @@ public class HomeController {
     @RequestMapping("/{id}")
     public String index() {
         return "index";
+    }
+
+    @RequestMapping("/board")
+    public String board() {
+        return "post/board";
     }
 
 }

@@ -18,6 +18,6 @@ INSERT lists (title, position, board_id) VALUES ('list3', 3, 2);
 
 INSERT card (title, position, board_id, lists_id) VALUES ('card1', 1, 2, 3);
 INSERT card (title, position, board_id, lists_id) VALUES ('card2', 2, 2, 3);
-INSERT card (title, position, board_id, lists_id) VALUES ('card3', 3, 2, 4);
+INSERT card (title, position, board_id, lists_id) VALUES ('card3', 2, 2, 4);
 INSERT card (title, position, board_id, lists_id) VALUES ('card4', 1, 2, 4);
-INSERT card (title, position, board_id, lists_id) VALUES ('card5', 2, 2, 5);
+INSERT card (title, position, board_id, lists_id) VALUES ('card5', 1, 2, 5);

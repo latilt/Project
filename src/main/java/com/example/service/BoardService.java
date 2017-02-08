@@ -24,7 +24,8 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    public List<Board> getBoardOne(String title) {
+    public Board getBoardOne(String title) {
+        //return boardRepository.findByTitle(title);
         return boardRepository.findByTitle(title);
     }
 

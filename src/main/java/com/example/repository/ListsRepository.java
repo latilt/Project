@@ -18,4 +18,6 @@ public interface ListsRepository extends CrudRepository<Lists, Integer>{
     Lists save(Lists lists);
 
     Lists findOne(Integer integer);
+
+    Lists findByTitle(String string);
 }

@@ -14,5 +14,7 @@ public interface BoardRepository extends CrudRepository<Board, Integer>{
 
     List<Board> findAll();
 
-    List<Board> findByTitle(String title);
+    //List<Board> findByTitle(String title);
+
+    Board findByTitle(String title);
 }

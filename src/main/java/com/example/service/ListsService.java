@@ -32,5 +32,9 @@ public class ListsService {
         return listsRepository.findOne(integer);
     }
 
+    public Lists findbytitle(String string) {
+        return listsRepository.findByTitle(string);
+    }
+
 
 }
