@@ -11,45 +11,77 @@
 </head>
 
 <body>
-
-    <div class="board-title">{{board.title}}</div>
-    <div class="list-wrapper">
-        <!--div class="list">
-            <div class="header">
-                <div class="title">title</div>
-            </div>
-            <div class="cards">
-                <div class="card">
-                    <div class="card-title">title</div>
-                </div>
-                <div class="composer">
-                    <input class="add-title" type="text" name="title" placeholder="Add a card" />
-                    <div>
-                        <input class="add-card" type="submit" value="Add" />
-                    </div>
-                </div>
-            </div>
-        </div-->
-        <div class="add-list">
-            <form id="save" method="post">
-                <input type="text" name="title" placeholder="Add a list..."/>
-                <div>
-                    <input type="submit" value="save"/>
-                </div>
-            </form>
+    <div id="surface">
+        <div id="header">
+            <a class="header-logo" href="/">
+                <span class="header-logo-default">Trello</span>
+            </a>
         </div>
+        <div id="content">
+            <div class="board-wrapper">
+                <div class="board-main-content">
+                    <div class="board-header">
+                        <a class="board-header-btn-name">
+                            <span class="board-header-btn-text">{{board.title}}</span>
+                        </a>
+                    </div>
+                    <div class="board-canvas">
+                        <div id="board">
+                            <!--div class="list-wrapper">
+                                <div class="list">
+                                    <div class="list-header">
+                                        <div class="list-title">title</div>
+                                    </div>
+                                    <div class="cards">
+                                        <div class="card">
+                                            <div class="card-title">title</div>
+                                        </div>
+                                        <div class="composer">
+                                            <input class="add-title" type="text" name="title" placeholder="Add a card" />
+                                            <div>
+                                                <input class="add-card" type="submit" value="Add" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div-->
+                            <div class="add-list list-wrapper">
+                                <form id="save" method="post">
+                                    <input type="text" name="title" placeholder="Add a list..."/>
+                                    <div>
+                                        <input type="submit" value="save"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="board-menu" style="display:none;"></div>
+
+            </div>
+
+        </div>
+
+
     </div>
+
+
 
 
 <script type="listTemplate" id="listTemplate">
-    <div class="header">
-        <div class="title">{{title}}</div>
-    </div>
-    <div class="cards">
-        <div class="composer">
-            <input class="add-title" type="text" name="title" placeholder="Add a card" />
-            <div>
-                <input class="add-card" type="submit" value="Add" />
+    <div class="list">
+        <div class="list-header">
+            <div class="list-title">{{title}}</div>
+        </div>
+        <div class="cards">
+            <div class="composer">
+                <input class="add-title" type="text" name="title" placeholder="Add a card" />
+                <div>
+                    <input class="add-card" type="submit" value="Add" />
+                </div>
             </div>
         </div>
     </div>

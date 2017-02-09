@@ -36,7 +36,7 @@ var pageLoad = {
             var resObj = JSON.parse(res.target.responseText);
 
             /* */
-            var boardTitle = document.querySelector(".board-title");
+            var boardTitle = document.querySelector(".board-header-btn-text");
             boardTitle.innerHTML = boardTitle.innerHTML.replace("{{board.title}}", resObj.title);
 
             var objSort = new Sort(resObj);
@@ -44,20 +44,18 @@ var pageLoad = {
 
 
             for(var i = 0; i < resObj.lists.length; i++) {
-                var temp = document.createElement("div");
-                temp.classList.add("list");
 
-                var template = document.querySelector("#listTemplate");
-                var templateText = template.innerHTML;
-                var wrapper = document.querySelector(".list-wrapper");
+                var listWrapper = document.createElement("div");
+                listWrapper.classList.add("list-wrapper");
 
-                templateText = templateText.replace("{{title}}", resObj.lists[i].title);
-                temp.innerHTML = templateText;
+                var list = document.querySelector("#listTemplate").innerHTML;
+                list = list.replace("{{title}}", resObj.lists[i].title);
+                listWrapper.innerHTML = list;
 
-                wrapper.insertBefore(temp, wrapper.lastElementChild);
+                var board = document.querySelector("#board");
+                board.insertBefore(listWrapper, board.lastElementChild);
 
-
-                var cards = temp.querySelector(".cards");
+                var cards = listWrapper.querySelector(".cards");
                 for(var j = 0; j < resObj.lists[i].cards.length; j++) {
                     var node = document.createElement("div");
                     node.classList.add("card");
@@ -84,26 +82,24 @@ var listMake = {
         evt.preventDefault();
 
         var title = evt.target.firstElementChild.value;
-        var board = document.querySelector(".board-title").innerText;
-        var number = document.querySelector(".list-wrapper").childElementCount;
+        var board = document.querySelector(".board-header-btn-text").innerText;
+        var number = document.querySelector("#board").childElementCount;
 
         // ajax call
         var ajax = new XMLHttpRequest();
         ajax.addEventListener("load", function(res) {
             if(res.target.status === 200) {
 
-                var temp = document.createElement("div");
-                temp.classList.add("list");
-                var templete = document.querySelector("#listTemplate");
-                var templeteText = templete.innerHTML;
-                var wrapper = document.querySelector(".list-wrapper");
+                var listWrapper = document.createElement("div");
+                listWrapper.classList.add("list-wrapper");
 
-                templeteText = templeteText.replace("{{title}}", title);
-                temp.innerHTML = templeteText;
+                var list = document.querySelector("#listTemplate").innerHTML;
+                list = list.replace("{{title}}", title);
 
-                console.log(temp);
+                listWrapper.innerHTML = list;
 
-                wrapper.insertBefore(temp, wrapper.lastElementChild);
+                var board= document.querySelector("#board");
+                board.insertBefore(listWrapper, board.lastElementChild);
             }
 
         });
@@ -123,34 +119,35 @@ var cardMake = {
     cardAdd : function(evt) {
         if(!(evt.target.className === "add-card")) return;
 
-        var title = evt.target.parentNode.previousElementSibling;
-        var board = document.querySelector(".board-title").innerText;
-        var list = evt.target.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.innerText;
-        var count = evt.target.parentNode.parentNode.parentNode.childElementCount;
+        var addCard = evt.target;
+        var list = addCard.closest(".list");
 
+        var addtitle = list.querySelector(".add-title").value;
+        var listTitle = list.querySelector(".list-title").innerText;
+        var cards = list.querySelector(".cards");
+        var count = cards.childElementCount;
+
+        var board = document.querySelector(".board-header-btn-text").innerText;
 
         var ajax = new XMLHttpRequest();
         ajax.addEventListener("load", function(res) {
+            if(res.target.status === 200) {
+                var card = document.createElement("div");
+                card.classList.add("card");
 
+                card.innerHTML = "<div class='card-title'>" + addtitle + "</div>";
 
-            var cards = evt.target.parentNode.parentNode.parentNode;
-
-            var node = document.createElement("div");
-            node.classList.add("card");
-
-            node.innerHTML = "<div class='card-title'>" + title.value + "</div>";
-
-            cards.insertBefore(node, cards.lastElementChild);
-
+                cards.insertBefore(card, cards.lastElementChild);
+            }
         });
         ajax.open("POST", "http://localhost:8080/board/list/card");
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.send("title="+title.value+"&boards="+board+"&list="+list+"&position="+count);
+        ajax.send("title="+addtitle+"&boards="+board+"&list="+listTitle+"&position="+count);
     },
 
     init : function() {
-        var listWrapper = document.querySelector(".list-wrapper");
-        listWrapper.addEventListener("click", this.cardAdd);
+        var board = document.querySelector("#board");
+        board.addEventListener("click", this.cardAdd);
     }
 };
 

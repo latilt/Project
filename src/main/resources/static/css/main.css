@@ -1,27 +1,125 @@
 * {
     box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
 }
 
-.list-wrapper > * {
-    float: left;
+a {
+    color: black;
+    text-decoration: none;
+}
+
+body {
+    background-color: rgb(0, 121, 191);
+}
+
+#surface, body, html {
+    height: 100%;
+}
+
+#header {
+    background: rgba(0, 0, 0, .15);
+    padding: 5px;
+    position: relative;
+    height: 30px;
+    overflow: hidden;
+}
+
+.header-logo {
+    bottom: 0;
+    top: 5px;
+    left: 50%;
+    margin-left: -40px;
+
+}
+
+.header-logo-default {
+    top: 0;
+    left: 0;
+}
+
+.header-logo, .header-logo-default {
+    position: absolute;
+    text-align: center;
+    height: 30px;
+    width: 80px;
+}
+
+.list-wrapper {
+    display: inline-block;
+    margin: 0 5px;
+    vertical-align: top;
+
+    width: 270px;
+    height: 100%;
+    white-space: nowrap;
 }
 
 .list {
-    width: 150px;
-    margin: 10px;
-    border: 1px solid gray;
+    background: #e2e4e6;
+    border-radius: 3px;
+
+    max-height: 100%;
+    white-space: normal;
+    position: relative;
+
+}
+
+.list-header {
+    padding: 8px 10px;
+    position: relative;
+    min-height: 18px;
+}
+
+.cards {
+    margin: 0 4px;
+    padding: 0 4px;
+    min-height: 0;
+}
+
+.card {
+    background-color: #fff;
+    margin-bottom: 6px;
+    border-radius: 3px;
+    padding: 6px 6px 2px 8px;
 }
 
 .add-list {
-    width: 150px;
-    margin: 10px;
-    border: 1px solid black;
+
 }
 
-.title {
-    border: 1px solid red;
+.list-title {
+
 }
 
 .card-title {
-    border: 1px solid blue;
+
+}
+
+
+#content {
+    overflow-y: auto;
+}
+
+#board {
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.board-canvas {
+    overflow: hidden;
+    position: relative;
+}
+
+.board-main-content {
+    height: 100%;
+}
+
+.board-header {
+    padding: 8px 4px 8px 8px;
+}
+
+.board-title {
+    height: 30px;
+    line-height: 30px;
 }
