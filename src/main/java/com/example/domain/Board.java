@@ -2,10 +2,7 @@ package com.example.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -19,12 +16,22 @@ public class Board {
 
     private String title;
 
-    @OneToMany( mappedBy = "board" )
+    @ManyToOne @JsonIgnore
+    private User user;
+
+    @OneToMany( mappedBy = "board", fetch = FetchType.LAZY)
     private List<Lists> lists;
 
     @OneToMany( mappedBy = "board") @JsonIgnore
     private List<Card> cards;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public List<Lists> getLists() {
         return lists;

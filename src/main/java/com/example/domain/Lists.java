@@ -18,7 +18,7 @@ public class Lists {
     @Column(nullable = false)
     private int position;
 
-    @OneToMany( mappedBy = "lists") //@JsonIgnore
+    @OneToMany( mappedBy = "lists", cascade = CascadeType.ALL) //@JsonIgnore
     private List<Card> cards;
 
     public List<Card> getCards() {
@@ -29,7 +29,7 @@ public class Lists {
         this.cards = cards;
     }
 
-    @ManyToOne @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore
     private Board board;
 
     public Board getBoard() {

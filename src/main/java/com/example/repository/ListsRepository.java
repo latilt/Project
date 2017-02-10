@@ -4,6 +4,7 @@ import com.example.domain.Lists;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -13,6 +14,8 @@ import java.util.List;
 public interface ListsRepository extends CrudRepository<Lists, Integer>{
     List<Lists> findAll();
 
+    List<Lists> findAllByBoardId(Integer integer);
+
     //List<Lists> findAllOrderByPositionDesc(Integer position);
 
     Lists save(Lists lists);
@@ -20,4 +23,7 @@ public interface ListsRepository extends CrudRepository<Lists, Integer>{
     Lists findOne(Integer integer);
 
     Lists findByTitle(String string);
+
+    @Transactional
+    void deleteByTitle(String string);
 }

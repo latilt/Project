@@ -20,8 +20,8 @@ public class ListsService {
         this.listsRepository = listsRepository;
     }
 
-    public List<Lists> setAll() {
-        return listsRepository.findAll();
+    public List<Lists> setAll(Integer integer) {
+        return listsRepository.findAllByBoardId(integer);
     }
 
     public Lists add(Lists lists) {
@@ -36,5 +36,7 @@ public class ListsService {
         return listsRepository.findByTitle(string);
     }
 
-
+    public void delete(String string) {
+        listsRepository.deleteByTitle(string);
+    }
 }

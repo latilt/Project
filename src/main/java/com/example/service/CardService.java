@@ -20,4 +20,14 @@ public class CardService {
     public Card add(Card card) {
        return cardRepository.save(card);
     }
+
+    public void delete(String string) {
+        cardRepository.deleteByTitle(string);
+        //cardRepository.deleteAll();
+
+    }
+
+    public void deleteId(Integer integer) {
+        cardRepository.delete(integer);
+    }
 }

@@ -15,7 +15,7 @@ public class Card {
     private String title;
     private int position;
 
-    @ManyToOne @JsonIgnore//@JoinColumn(referencedColumnName = "position")
+    @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore//@JoinColumn(referencedColumnName = "position")
     private Lists lists;
 
     public Lists getLists() {
@@ -26,7 +26,7 @@ public class Card {
         this.lists = lists;
     }
 
-    @ManyToOne @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore
     private Board board;
 
     public Board getBoard() {

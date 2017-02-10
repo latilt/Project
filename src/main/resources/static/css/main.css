@@ -82,6 +82,23 @@ body {
     margin-bottom: 6px;
     border-radius: 3px;
     padding: 6px 6px 2px 8px;
+    position: relative;
+}
+
+.card-delete {
+    position: absolute;
+    bottom: 2px;
+    right: 6px;
+}
+
+.composer {
+    position: relative;
+}
+
+.list-delete {
+    position: absolute;
+    bottom: 2px;
+    right: 6px;
 }
 
 .add-list {
