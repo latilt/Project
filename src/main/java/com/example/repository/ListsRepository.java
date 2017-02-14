@@ -24,6 +24,8 @@ public interface ListsRepository extends CrudRepository<Lists, Integer>{
 
     Lists findByTitle(String string);
 
+    Lists findByPosition(Integer integer);
+
     @Transactional
     void deleteByTitle(String string);
 }

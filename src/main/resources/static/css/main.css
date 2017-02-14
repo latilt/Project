@@ -55,6 +55,14 @@ body {
     white-space: nowrap;
 }
 
+.list-wrapper:nth-child(1) {
+    margin-left: 10px;
+}
+
+.list-wrapper:last-child {
+    margin-right: 10px;
+}
+
 .list {
     background: #e2e4e6;
     border-radius: 3px;
@@ -63,6 +71,18 @@ body {
     white-space: normal;
     position: relative;
 
+}
+
+.list-name-input {
+    width: 100%;
+    background-color: #aaa;
+    border: none;
+    border-radius: 3px;
+    height: 34px;
+}
+
+.list-add-controls {
+    margin-top: 4px;
 }
 
 .list-header {
@@ -93,6 +113,7 @@ body {
 
 .composer {
     position: relative;
+    padding-bottom: 6px;
 }
 
 .list-delete {
@@ -102,7 +123,9 @@ body {
 }
 
 .add-list {
-
+    background-color: #e2e4e6;
+    border-radius: 3px;
+    padding: 4px;
 }
 
 .list-title {
@@ -111,6 +134,15 @@ body {
 
 .card-title {
 
+}
+
+.add-title {
+    width: 254px;
+    height: 27px;
+    border-radius: 3px;
+    border: none;
+    padding-left: 8px;
+    margin-bottom: 6px;
 }
 
 
@@ -139,4 +171,8 @@ body {
 .board-title {
     height: 30px;
     line-height: 30px;
+}
+
+.placeholder {
+    background-color: rgba(255, 255, 255, 0.7);
 }

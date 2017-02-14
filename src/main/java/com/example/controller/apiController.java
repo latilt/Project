@@ -35,7 +35,7 @@ public class apiController {
     @RequestMapping(value ="/{id}/con", method = RequestMethod.POST)
     public Board construct(@PathVariable String id) {
         Board board = boardService.getBoardOne(id);
-        board.setLists(listsService.setAll(board.getId()));
+        //board.setLists(listsService.setAll(board.getId()));
 
         return board;
     }
@@ -56,9 +56,16 @@ public class apiController {
     }
 
     @RequestMapping(value ="/user/{name}", method= RequestMethod.GET)
-    public User userBoard(User user, @PathVariable String name) {
-        return userService.getUserBoard(name);
+    public List<String> userBoard(@PathVariable String name) {
+        //유저 유저 객체만
+        //
 
+
+        //return userService.getUserBoard(name);
+        User user = userService.getUserBoard(name);
+        //Board board = boardService.getBoardbyUser(user.getId());
+
+        return boardService.getBoardbyUser(user.getId());
     }
 
     @RequestMapping(value="/card/delete", method=RequestMethod.POST)
@@ -71,5 +78,18 @@ public class apiController {
     public String deleteList(@RequestParam("listtitle") String string) {
         listsService.delete(string);
         return "delete Done";
+    }
+
+    @RequestMapping(value="/list/move", method = RequestMethod.POST)
+    public String moveList(@RequestParam("listtitle") String listtitle, @RequestParam("prevtitle") String prevtitle, @RequestParam("position") Integer position, @RequestParam("prevposition") Integer prevposition) {
+        /*Lists list = listsService.findbytitle(listtitle);
+        Lists list2 = listsService.findbytitle(prevtitle);
+
+        list.setPosition(position);
+        list2.setPosition(prevposition);
+
+        listsService.add(list2);
+        listsService.add(list);*/
+        return "move Done";
     }
 }

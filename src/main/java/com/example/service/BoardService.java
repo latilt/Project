@@ -29,4 +29,8 @@ public class BoardService {
         return boardRepository.findByTitle(title);
     }
 
+    public List<String> getBoardbyUser(Integer integer) {
+        return boardRepository.findTitleByUserId(integer);
+    }
+
 }

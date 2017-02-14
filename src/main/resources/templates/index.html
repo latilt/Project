@@ -49,8 +49,8 @@
                             </div-->
                             <div class="add-list list-wrapper">
                                 <form id="save" method="post">
-                                    <input type="text" name="title" placeholder="Add a list..."/>
-                                    <div>
+                                    <input class="list-name-input" type="text" name="title" placeholder="Add a list..."/>
+                                    <div class="list-add-controls">
                                         <input type="submit" value="save"/>
                                     </div>
                                 </form>
@@ -88,6 +88,29 @@
             </div>
         </div>
     </div>
+</script>
+
+<script type="boardTemplate" id="boardTemplate">
+    <div class="member-board-view">
+        <div class="boards-page-board-section">
+            <div class="boards-page-board-section-header">
+                <h3 class="boards-page-board-section-header-name">Personal Boards</h3>
+            </div>
+            <ul class="boards-page-board-section-list">
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script type="tileTemplate" id="tileTemplate">
+    <li class="boards-page-board-section-list-item">
+        <a class="board-tile" href="#">
+            <span class="board-tile-fade"></span>
+            <span class="board-tile-detail">
+                <span class="board-tile-details-name">{{board-title}}</span>
+            </span>
+        </a>
+    </li>
 </script>
 </body>
 </html>

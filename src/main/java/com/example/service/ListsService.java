@@ -5,6 +5,7 @@ import com.example.repository.ListsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**
@@ -34,6 +35,10 @@ public class ListsService {
 
     public Lists findbytitle(String string) {
         return listsRepository.findByTitle(string);
+    }
+
+    public Lists findbyposition(Integer integer) {
+        return listsRepository.findByPosition(integer);
     }
 
     public void delete(String string) {

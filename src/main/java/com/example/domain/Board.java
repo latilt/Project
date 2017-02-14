@@ -1,6 +1,8 @@
 package com.example.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +18,7 @@ public class Board {
 
     private String title;
 
-    @ManyToOne @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore
     private User user;
 
     @OneToMany( mappedBy = "board", fetch = FetchType.LAZY)

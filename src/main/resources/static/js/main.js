@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     pageLoad.init();
     list.init();
     card.init();
+    moving.init();
 });
 
 class Sort {
@@ -189,7 +190,6 @@ const card = {
     },
 
     clicked : function(evt) {
-        console.log(evt.target);
         if(evt.target.className === "add-card") return this.cardAdd(evt);
         if(evt.target.className === "card-delete") return this.cardDelete(evt);
         if(evt.target.className === "list-delete") return this.listDelete(evt);
@@ -200,6 +200,90 @@ const card = {
         board.addEventListener("click", this.clicked.bind(card));
     }
 };
+
+var moving = {
+    moveNode : null,
+    fakeNode : null,
+    x : null, y : null,
+    flag : 0,
+    position : -1,
+    prevPosition : -1,
+    prevTitle : null,
+
+    down : function(evt) {
+        this.flag = 0;
+    },
+
+    up : function(evt) {
+        if(this.flag !== 1) return;
+        this.moveNode.style = "";
+        this.fakeNode.parentElement.replaceChild(this.moveNode, this.fakeNode);
+
+        var listTitle = this.moveNode.querySelector(".list-title").innerText;
+
+        var ajax = new XMLHttpRequest();
+        ajax.addEventListener("load", function(res) {
+            if(res.target.status === 200) {
+
+            }
+        });
+        ajax.open("POST", "http://localhost:8080/list/move");
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        ajax.send("listtitle="+listTitle+"&prevtitle="+this.prevTitle+"&position="+(this.position+1)+"&prevposition="+(this.prevPosition+1));
+
+    },
+
+    move : function(evt) {
+        if(evt.buttons === 0) return;
+
+        if(evt.buttons === 1 && this.flag === 0 && evt.target.classList.contains("list-title")) {
+            this.moveNode = evt.target.closest(".list-wrapper");
+            this.x = evt.offsetX;
+            this.y = evt.offsetY;
+            this.flag = 1;
+            this.prevPosition = Math.floor(evt.pageX / 280);
+
+            var height = window.getComputedStyle(this.moveNode).getPropertyValue("height");
+
+            this.fakeNode = document.createElement("div");
+            this.fakeNode.classList.add("list-wrapper");
+            this.fakeNode.classList.add("placeholder");
+            this.fakeNode.style.height = height;
+            this.moveNode.parentElement.insertBefore(this.fakeNode, this.moveNode);
+            document.querySelector("body").appendChild(this.moveNode);
+            this.moveNode.style.position = "absolute";
+        }
+
+        if(this.flag === 1) {
+            this.moveNode.style.left = (evt.pageX - this.x)+"px";
+            this.moveNode.style.top = (evt.pageY - this.y)+"px";
+
+            this.position = Math.floor(evt.pageX / 280);
+            var margin = evt.pageX % 280;
+            if(margin > 10) {
+                var targetNode = this.fakeNode.parentElement;
+
+                if(margin > 140) {
+                    targetNode.insertBefore(this.fakeNode, targetNode.children[this.position]);
+
+                } else {
+                    targetNode.insertBefore(this.fakeNode, targetNode.children[this.position].nextElementSibling)
+                }
+
+                //this.prevTitle = targetNode.children[this.position].querySelector(".list-title").innerText;
+                //console.log(targetNode.children[this.position]);
+            }
+
+        }
+
+    },
+
+    init : function() {
+        document.addEventListener("mousedown", this.down.bind(moving));
+        document.addEventListener("mouseup", this.up.bind(moving));
+        document.addEventListener("mousemove", this.move.bind(moving));
+    }
+}
 
 
 
