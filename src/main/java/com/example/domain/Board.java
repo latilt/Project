@@ -66,4 +66,11 @@ public class Board {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public Board hide(Board b) {
+        Board ret = new Board();
+        //copy excopet list
+        ret.setTitle(b.getTitle());
+        return ret;
+    }
 }

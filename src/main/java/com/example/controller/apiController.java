@@ -11,6 +11,7 @@ import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,8 +37,15 @@ public class apiController {
     public Board construct(@PathVariable String id) {
         Board board = boardService.getBoardOne(id);
         //board.setLists(listsService.setAll(board.getId()));
-
+//        MyPojo p = new MyPojo();
+//        p.name = board.getTitle()
         return board;
+    }
+
+    @RequestMapping(value ="/next", method = RequestMethod.POST)
+    public String con() {
+        //HashMap<String >
+        return "ok";
     }
 
     @RequestMapping(value ="/board/list/save", method= RequestMethod.POST)

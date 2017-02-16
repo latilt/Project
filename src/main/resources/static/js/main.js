@@ -3,6 +3,22 @@ document.addEventListener("DOMContentLoaded", function() {
     list.init();
     card.init();
     moving.init();
+
+    var over = document.querySelector(".window-overlay");
+    over.addEventListener("click", function(aaa) {
+       aaa.target.style.display = "none";
+    });
+
+    // var next = document.querySelector(".next");
+    // next.addEventListener("click", function(next) {
+    //    var ajax = new XMLHttpRequest();
+    //    ajax.addEventListener("load", function(res) {
+    //
+    //    });
+    //    ajax.open("POST", "http://localhost:8080/next");
+    //    ajax.send();
+    // });
+
 });
 
 class Sort {
@@ -61,7 +77,7 @@ const pageLoad = {
                     const node = document.createElement("div");
                     node.classList.add("card");
 
-                    node.innerHTML = "<div class='card-title'>" + resObj.lists[i].cards[j].title + "</div><div class='card-delete'>X</div>";
+                    node.innerHTML = "<div class='card-title' draggable='true'>" + resObj.lists[i].cards[j].title + "</div><div class='card-delete'>X</div>";
 
                     cards.insertBefore(node, cards.lastElementChild);
                 }
@@ -120,6 +136,7 @@ const list = {
 };
 
 const card = {
+    dragged : null,
 
     cardAdd: function (evt) {
         if (!(evt.target.className === "add-card")) return;
@@ -142,7 +159,7 @@ const card = {
                 const card = document.createElement("div");
                 card.classList.add("card");
 
-                card.innerHTML = "<div class='card-title'>" + addtitle + "</div><div class='card-delete'>X</div>";
+                card.innerHTML = "<div class='card-title' draggable='true'>" + addtitle + "</div><div class='card-delete'>X</div>";
 
                 cards.insertBefore(card, cards.lastElementChild);
             }
@@ -189,15 +206,47 @@ const card = {
 
     },
 
+    cardOpen : function(evt) {
+      var win = document.querySelector(".window-overlay");
+      win.style.display = "flex";
+      win.firstElementChild.style.display="block";
+
+      var wrapper = win.querySelector(".window-wrapper");
+
+      var temp = document.querySelector("#overlayTemplate").innerHTML;
+      wrapper.innerHTML = temp;
+    },
+
+    dragstart : function(evt) {
+        this.dragged = evt.target.closest(".card");
+    },
+
+    drop : function(evt) {
+        var listWrapper = evt.target.closest(".list-wrapper");
+        if(listWrapper === null) return;
+        var cards = listWrapper.querySelector(".cards");
+
+        cards.insertBefore(this.dragged, cards.lastElementChild);
+        console.log("ok");
+    },
+
+    dragover : function(evt) {
+      evt.preventDefault();
+    },
+
     clicked : function(evt) {
         if(evt.target.className === "add-card") return this.cardAdd(evt);
         if(evt.target.className === "card-delete") return this.cardDelete(evt);
         if(evt.target.className === "list-delete") return this.listDelete(evt);
+        if(evt.target.className === "card-title") return this.cardOpen(evt);
     },
 
     init: function () {
         const board = document.querySelector("#board");
         board.addEventListener("click", this.clicked.bind(card));
+        board.addEventListener("drop", this.drop.bind(card));
+        board.addEventListener("dragstart", this.dragstart.bind(card));
+        board.addEventListener("dragover", this.dragover.bind(card));
     }
 };
 
@@ -243,7 +292,7 @@ var moving = {
             this.flag = 1;
             this.prevPosition = Math.floor(evt.pageX / 280);
 
-            var height = window.getComputedStyle(this.moveNode).getPropertyValue("height");
+            var height = window.getComputedStyle(this.moveNode.firstElementChild).getPropertyValue("height");
 
             this.fakeNode = document.createElement("div");
             this.fakeNode.classList.add("list-wrapper");
@@ -283,7 +332,7 @@ var moving = {
         document.addEventListener("mouseup", this.up.bind(moving));
         document.addEventListener("mousemove", this.move.bind(moving));
     }
-}
+};
 
 
 
