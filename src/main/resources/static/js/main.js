@@ -6,18 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var over = document.querySelector(".window-overlay");
     over.addEventListener("click", function(aaa) {
-       aaa.target.style.display = "none";
+        console.log(aaa.target);
+        if(aaa.target.className === "window-overlay") {
+            aaa.target.style.display = "none";
+        }
+
     });
 
-    // var next = document.querySelector(".next");
-    // next.addEventListener("click", function(next) {
-    //    var ajax = new XMLHttpRequest();
-    //    ajax.addEventListener("load", function(res) {
-    //
-    //    });
-    //    ajax.open("POST", "http://localhost:8080/next");
-    //    ajax.send();
-    // });
 
 });
 
