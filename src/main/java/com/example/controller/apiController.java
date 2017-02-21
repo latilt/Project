@@ -8,8 +8,10 @@ import com.example.service.BoardService;
 import com.example.service.CardService;
 import com.example.service.ListsService;
 import com.example.service.UserService;
+import com.example.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,13 +26,15 @@ public class apiController {
     private BoardService boardService;
     private ListsService listsService;
     private CardService cardService;
+    private StorageService storageService;
 
     @Autowired
-    public apiController(UserService userService, BoardService boardService, ListsService listsService, CardService cardService) {
+    public apiController(UserService userService, BoardService boardService, ListsService listsService, CardService cardService, StorageService storageService) {
         this.userService = userService;
         this.boardService = boardService;
         this.listsService = listsService;
         this.cardService = cardService;
+        this.storageService = storageService;
     }
 
     @RequestMapping(value ="/{id}/con", method = RequestMethod.POST)
@@ -99,5 +103,11 @@ public class apiController {
         listsService.add(list2);
         listsService.add(list);*/
         return "move Done";
+    }
+
+    @RequestMapping(value="/file/send", method = RequestMethod.POST)
+    public String sendFile(@RequestParam("file") MultipartFile file) {
+        storageService.store(file);
+        return "send Done";
     }
 }

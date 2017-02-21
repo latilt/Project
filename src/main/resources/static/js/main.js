@@ -3,10 +3,11 @@ document.addEventListener("DOMContentLoaded", function() {
     list.init();
     card.init();
     moving.init();
+    file.init();
 
     var over = document.querySelector(".window-overlay");
     over.addEventListener("click", function(aaa) {
-        console.log(aaa.target);
+
         if(aaa.target.className === "window-overlay") {
             aaa.target.style.display = "none";
         }
@@ -15,6 +16,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
+
+var file = {
+    sendFile : function(evt) {
+        evt.preventDefault();
+        console.log(evt.target);
+        if(evt.target.id !== 'attachFile' ) return;
+
+
+        var formData = new FormData(evt.target);
+        //var formData = new FormData(document.querySelector("#attachFile"));
+        var ajax = new XMLHttpRequest();
+        ajax.addEventListener("load", function(res) {
+            if(res.target.status === 200) {
+                console.log("ajax ok");
+            }
+        });
+        ajax.open("POST", "http://localhost:8080/file/send");
+        //ajax.setRequestHeader("Content-type", "multipart/form-data");
+        ajax.send(formData);
+    },
+
+    init : function() {
+
+        document.addEventListener("submit", this.sendFile);
+    }
+}
 
 class Sort {
     constructor(arr) {
