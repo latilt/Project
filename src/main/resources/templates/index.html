@@ -12,75 +12,86 @@
 </head>
 
 <body>
-    <!--div class="next">next</div-->
-    <div id="surface">
-        <div id="header">
-            <a class="header-logo" href="board">
-                <span class="header-logo-default"></span>
-            </a>
-        </div>
-        <div id="content">
-            <div class="board-wrapper">
-                <div class="board-main-content">
-                    <div class="board-header">
-                        <a class="board-header-btn-name">
-                            <span class="board-header-btn-text">{{board.title}}</span>
-                        </a>
-                    </div>
-                    <div class="board-canvas">
-                        <div id="board">
-                            <!--div class="list-wrapper">
-                                <div class="list">
-                                    <div class="list-header">
-                                        <div class="list-title">title</div>
-                                    </div>
-                                    <div class="cards">
-                                        <div class="card">
-                                            <div class="card-title">title</div>
-                                            <div class="card-delete">X</div>
-                                        </div>
-                                        <div class="composer">
-                                            <input class="add-title" type="text" name="title" placeholder="Add a card" />
-                                            <div>
-                                                <input class="add-card" type="submit" value="Add" />
-                                            </div>
-                                            <div class="list-delete">X</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div-->
-                            <div class="add-list list-wrapper">
-                                <form id="save" method="post">
-                                    <input class="list-name-input" type="text" name="title" placeholder="Add a list..." autocomplete="off"/>
-                                    <div class="list-add-controls">
-                                        <input type="submit" value="save"/>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-
+<!--div class="next">next</div-->
+<div id="surface">
+    <div id="header" class="view">
+        <a class="header-logo" th:href="${users.userName}" href="#">
+            <span class="header-logo-default"></span>
+        </a>
+    </div>
+    <div id="content">
+        <div class="member-board-view">
+            <div class="boards-page-board-section">
+                <div class="boards-page-board-section-header">
+                    <h3 class="boards-page-board-section-header-name" th:text="${users.userName} + ' Boards'">Personal Boards</h3>
                 </div>
-
-                <div class="board-menu" style="display:none;"></div>
-
+                <ul class="js-board boards-page-board-section-list">
+                    <li th:each="board : ${users.boards}" class="boards-page-board-section-list-item">
+                        <a class="board-tile" th:href="${board.title}" href="#">
+                            <span class="board-tile-fade"></span>
+                            <span class="board-tile-detail">
+                                <span th:text="${board.title}" class="board-tile-details-name">Trello</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="boards-page-board-section-list-item">
+                        <form id="board-create" method="post">
+                            <input class="board-title" type="text" name="title" placeholder="Add a Board..." autocomplete="off"/>
+                            <div class="board-create-controls">
+                                <input type="submit" value="create"/>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
             </div>
-
         </div>
-
 
     </div>
 
-    <div class="window-overlay">
-        <div class="window">
-            <a class="focus-dummy" href="#"></a>
-            <div class="window-wrapper"></div>
-        </div>
+
+</div>
+
+<div class="window-overlay">
+    <div class="window">
+        <a class="focus-dummy" href="#"></a>
+        <div class="window-wrapper"></div>
     </div>
+</div>
 
+<script type="tileTemplate" id="tileTemplate">
+    <a class="board-tile" href="#">
+        <span class="board-tile-fade"></span>
+        <span class="board-tile-detail">
+                <span class="board-tile-details-name">{{board-title}}</span>
+            </span>
+    </a>
+</script>
 
+<script type="boardTemplate" id="boardTemplate">
+    <div class="board-wrapper">
+        <div class="board-main-content">
+            <div class="board-header">
+                <a class="board-header-btn-name">
+                    <span class="board-header-btn-text">{{board.title}}</span>
+                </a>
+            </div>
+            <div class="board-canvas">
+                <div id="board">
 
+                    <div class="add-list list-wrapper">
+                        <form id="save" method="post">
+                            <input class="list-name-input" type="text" name="title" placeholder="Add a list..." autocomplete="off"/>
+                            <div class="list-add-controls">
+                                <input type="submit" value="save"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="board-menu" style="display:none;"></div>
+    </div>
+</script>
 
 <script type="listTemplate" id="listTemplate">
     <div class="list">
@@ -97,29 +108,6 @@
             </div>
         </div>
     </div>
-</script>
-
-<script type="boardTemplate" id="boardTemplate">
-    <div class="member-board-view">
-        <div class="boards-page-board-section">
-            <div class="boards-page-board-section-header">
-                <h3 class="boards-page-board-section-header-name">Personal Boards</h3>
-            </div>
-            <ul class="boards-page-board-section-list">
-            </ul>
-        </div>
-    </div>
-</script>
-
-<script type="tileTemplate" id="tileTemplate">
-    <li class="boards-page-board-section-list-item">
-        <a class="board-tile" href="#">
-            <span class="board-tile-fade"></span>
-            <span class="board-tile-detail">
-                <span class="board-tile-details-name">{{board-title}}</span>
-            </span>
-        </a>
-    </li>
 </script>
 
 <script type="overlayTemplate" id="overlayTemplate">
@@ -314,5 +302,6 @@
         </div>
     </div>
 </script>
+
 </body>
 </html>

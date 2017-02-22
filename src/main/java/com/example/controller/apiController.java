@@ -131,6 +131,7 @@ public class apiController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         String json = null;
         try {
             json = new ObjectMapper().writeValueAsString(filePath);
@@ -138,5 +139,12 @@ public class apiController {
             e.printStackTrace();
         }
         return json;
+    }
+
+    @RequestMapping(value="/board/create", method = RequestMethod.POST)
+    public String createBoard(Board board, @RequestParam("username") String username) {
+        board.setUser(userService.getUserBoard(username));
+        boardService.createBoard(board);
+        return "create Board";
     }
 }

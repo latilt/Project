@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+    board.init();
     pageLoad.init();
-    list.init();
-    card.init();
-    moving.init();
-    file.init();
 
     var over = document.querySelector(".window-overlay");
     over.addEventListener("click", function(aaa) {
@@ -11,11 +8,46 @@ document.addEventListener("DOMContentLoaded", function() {
         if(aaa.target.className === "window-overlay") {
             aaa.target.style.display = "none";
         }
-
     });
 
-
 });
+
+var board = {
+    createBoard : function(evt) {
+        evt.preventDefault();
+
+        var boardTitle = evt.target.querySelector(".board-title");
+        if(boardTitle.value.length === 0) return;
+
+        var username = document.querySelector(".boards-page-board-section-header-name").innerText;
+
+        var ajax = new XMLHttpRequest();
+        ajax.addEventListener("load", function(res) {
+            if(res.target.status === 200) {
+                var tileTemplate = document.querySelector("#tileTemplate").innerText;
+                tileTemplate = tileTemplate.replace("{{board-title}}", boardTitle.value);
+                tileTemplate = tileTemplate.replace("#", boardTitle.value);
+
+                var li = document.createElement("li");
+                li.classList.add("boards-page-board-section-list-item");
+                li.innerHTML = tileTemplate;
+
+                var jsBoard = document.querySelector(".js-board");
+                jsBoard.insertBefore(li, jsBoard.lastElementChild);
+
+                boardTitle.value = "";
+            }
+        });
+        ajax.open("POST", "http://localhost:8080/board/create");
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        ajax.send("title=" + boardTitle.value + "&username=" + username);
+    },
+
+    init : function() {
+        var create = document.querySelector("#board-create");
+        create.addEventListener("submit", this.createBoard);
+    }
+}
 
 var file = {
     sendFile : function(evt) {
@@ -30,7 +62,11 @@ var file = {
                 var json = JSON.parse(res.target.response);
                 var url = json.url.match(/images\W\w+\W\w+/);
                 var images = document.querySelector(".images");
-                images.style.backgroundImage = "url('" + url + "')";
+
+                setTimeout(function() {
+                    images.style.backgroundImage = "url('" + url + "')";
+                }, 5000);
+
             }
         });
         ajax.open("POST", "http://localhost:8080/file/send");
@@ -75,6 +111,13 @@ const pageLoad = {
         if (res.target.status === 200) {
             const resObj = JSON.parse(res.target.responseText);
 
+            document.querySelector("body").style.backgroundColor="rgb(0, 121, 191)";
+
+
+            var content = document.querySelector("#content");
+            var a = document.querySelector("#boardTemplate").innerHTML;
+            content.innerHTML = a;
+
             /* */
             const boardTitle = document.querySelector(".board-header-btn-text");
             boardTitle.innerHTML = boardTitle.innerHTML.replace("{{board.title}}", resObj.title);
@@ -105,14 +148,33 @@ const pageLoad = {
                     cards.insertBefore(node, cards.lastElementChild);
                 }
             }
+            list.init();
+            card.init();
+            moving.init();
+            file.init();
         }
     },
 
-    init: function () {
+    req : function(evt) {
+        var url;
+        if(evt.target.tagName === "SPAN") {
+            url = evt.target.closest(".board-tile").href;
+        } else if(evt.target.className !== "board-tile") {
+            return;
+        } else {
+            url = evt.target.href;
+        }
+
+        evt.preventDefault();
         const ajax = new XMLHttpRequest();
         ajax.addEventListener("load", this.pageRender);
-        ajax.open("POST", location.href + "/con");
+        ajax.open("POST", url +  "/con");
         ajax.send();
+    },
+
+    init: function () {
+        var board = document.querySelector(".js-board");
+        board.addEventListener("click", this.req.bind(this));
     }
 };
 
@@ -121,8 +183,8 @@ const list = {
     listAdd: function (evt) {
         evt.preventDefault();
 
-        const title = evt.target.firstElementChild.value;
-        if(title.length === 0) return;
+        const title = evt.target.firstElementChild;
+        if(title.value.length === 0) return;
 
         const board = document.querySelector(".board-header-btn-text").innerText;
         const number = document.querySelector("#board").childElementCount;
@@ -136,18 +198,20 @@ const list = {
                 listWrapper.classList.add("list-wrapper");
 
                 let list = document.querySelector("#listTemplate").innerHTML;
-                list = list.replace("{{title}}", title);
+                list = list.replace("{{title}}", title.value);
 
                 listWrapper.innerHTML = list;
 
                 const board = document.querySelector("#board");
                 board.insertBefore(listWrapper, board.lastElementChild);
+
+                title.value = "";
             }
 
         });
         ajax.open("POST", "http://localhost:8080/board/list/save");
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.send("title=" + title + "&position=" + number + "&boards=" + board);
+        ajax.send("title=" + title.value + "&position=" + number + "&boards=" + board);
     },
 
 
@@ -167,8 +231,8 @@ const card = {
         const addCard = evt.target;
         const list = addCard.closest(".list");
 
-        const addtitle = list.querySelector(".add-title").value;
-        if(addtitle.length === 0) return;
+        const addtitle = list.querySelector(".add-title");
+        if(addtitle.value.length === 0) return;
 
         const listTitle = list.querySelector(".list-title").innerText;
         const cards = list.querySelector(".cards");
@@ -182,14 +246,16 @@ const card = {
                 const card = document.createElement("div");
                 card.classList.add("card");
 
-                card.innerHTML = "<div class='card-title' draggable='true'>" + addtitle + "</div><div class='card-delete'>X</div>";
+                card.innerHTML = "<div class='card-title' draggable='true'>" + addtitle.value + "</div><div class='card-delete'>X</div>";
 
                 cards.insertBefore(card, cards.lastElementChild);
+
+                addtitle.value = "";
             }
         });
         ajax.open("POST", "http://localhost:8080/card/add");
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.send("title=" + addtitle + "&boards=" + board + "&list=" + listTitle + "&position=" + count);
+        ajax.send("title=" + addtitle.value + "&boards=" + board + "&list=" + listTitle + "&position=" + count);
     },
 
     cardDelete : function(evt) {
@@ -219,9 +285,9 @@ const card = {
 
         var ajax = new XMLHttpRequest();
         ajax.addEventListener("load", function(res) {
-           if(res.target.status === 200) {
-               board.removeChild(listWrapper);
-           }
+            if(res.target.status === 200) {
+                board.removeChild(listWrapper);
+            }
         });
         ajax.open("POST", "http://localhost:8080/list/delete");
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -230,14 +296,14 @@ const card = {
     },
 
     cardOpen : function(evt) {
-      var win = document.querySelector(".window-overlay");
-      win.style.display = "flex";
-      win.firstElementChild.style.display="block";
+        var win = document.querySelector(".window-overlay");
+        win.style.display = "flex";
+        win.firstElementChild.style.display="block";
 
-      var wrapper = win.querySelector(".window-wrapper");
+        var wrapper = win.querySelector(".window-wrapper");
 
-      var temp = document.querySelector("#overlayTemplate").innerHTML;
-      wrapper.innerHTML = temp;
+        var temp = document.querySelector("#overlayTemplate").innerHTML;
+        wrapper.innerHTML = temp;
     },
 
     dragstart : function(evt) {
@@ -254,7 +320,7 @@ const card = {
     },
 
     dragover : function(evt) {
-      evt.preventDefault();
+        evt.preventDefault();
     },
 
     clicked : function(evt) {
@@ -361,15 +427,15 @@ var moving = {
 
 
 /*class Ajax {
-    constructor() {
-        this.ajax = new XMLHttpRequest();
-    }
+ constructor() {
+ this.ajax = new XMLHttpRequest();
+ }
 
-    event(func) {
-        this.ajax.addEventListener("load", func);
-    }
+ event(func) {
+ this.ajax.addEventListener("load", func);
+ }
 
-    open(url) {
-        this.ajax.open("POST", url);
-    }
-}*/
+ open(url) {
+ this.ajax.open("POST", url);
+ }
+ }*/

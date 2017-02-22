@@ -23,7 +23,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     //@Query("SELECT title FROM board where user_id = ?1")
     List<String> findTitleByUserId(Integer integer);
 
-
+    Board save(Board board);
 
 
 

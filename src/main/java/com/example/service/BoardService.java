@@ -33,4 +33,8 @@ public class BoardService {
         return boardRepository.findTitleByUserId(integer);
     }
 
+    public Board createBoard(Board board) {
+        return boardRepository.save(board);
+    }
+
 }

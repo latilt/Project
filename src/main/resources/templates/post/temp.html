@@ -1,77 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="description" content="Organize anything, together. Trello is a collaboration tool that organizes your projects into boards. In one glance, know what's being worked on, who's working on what, and where something is in a process.">
-    <meta name="viewport" content="maximum-scale=1,width=device-width,initial-scale=1,user-scalable=0">
-    <meta name="apple-itunes-app" content="app-id=461504587">
-    <meta name="robots" content="noarchive">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="referrer" content="origin-when-cross-origin">
+
     <title>Trello</title>
+    <!--link rel="stylesheet" href="../static/css/core.css" th:href="@{/css/core.css}" /-->
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}" />
+    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 
-    <!--
-    <script>
-        !function(e,n,o,a,s,t,i){
-            e.GoogleAnalyticsObject=s,e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)},e[s].l=1*new Date,t=n.createElement(o),i=n.getElementsByTagName(o)[0],t.async=1,t.src=a,i.parentNode.insertBefore(t,i)}(window,document,"script","//www.google-analytics.com/analytics.js","ga");var page=location.pathname;"/"===page&&(page="/boards"),ga("create","UA-53826304-2",{cookieDomain:"trello.com",sampleRate:1});var versionComponents="build-393".split("-");ga("set","dimension1",versionComponents[0]),ga("set","dimension2",versionComponents[1]),ga("send","pageview",page),function(e,n,o){e[o]||(e.GlobalSnowplowNamespace=e.GlobalSnowplowNamespace||[],e.GlobalSnowplowNamespace.push(o),e[o]=function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].q=e[o].q||[])}(window,document,"sp");</script>
-    -->
-    <!-- script>
-        var _failed=function(n){
-            n=n.src||n.href;
-            var e=function(n){
-                return(n=/^https?:\/\/[^\/]+/.exec(n))?n[0]:void 0},e=e(n)||e(location.href)||"unknown";
-            ga("send","event","Load Failure",e,n)};
-    </script -->
-    <!-- script src="https://d78fikflryjgj.cloudfront.net/js/2c7cca50014d4d8ce374fb154965d182/snowplow.js" integrity="sha512-GaOybxci65IIpUh9N9kAGktcY0rKD2CZMnMForHD5VBLzk5zFc7sLAOKL/uN1UgTnY8ZKuMdZKPVkwQGh8+aGQ==" async crossorigin="anonymous" onerror="_failed(this)"></script -->
-    <!-- script src="https://d78fikflryjgj.cloudfront.net/js/269b131996153d0e4e908e20a63de8e4/quickload.js" integrity="sha512-1v/Ddh47Hg46SbTX4pV0PMX7+og+59xhnOz6vc946RIUZTBE92TYCm2k5yzdUS9aL295Bc1l68yNrb3sJxC6GQ==" crossorigin="anonymous" onerror="_failed(this)"></script -->
-
-    <script type="text/javascript">window.clientVersion="build-393",window.slackTrelloDomain="https://slack-chat.trello.services",window.slackDomain="https://slack.com/oauth/authorize",window.attachmentsDomain="https://trello-attachments.s3.amazonaws.com",window.avatarDomain="https://trello-avatars.s3.amazonaws.com",window.backgroundDomain="https://trello-backgrounds.s3.amazonaws.com",window.logoDomain="https://trello-logos.s3.amazonaws.com",window.oneDriveClientId="f7936f71-2186-4c33-8553-134e287aefdf",window.googleDriveClientId="28300235456-b801aqbc1i8luet9arr7sgll09t6eep9.apps.googleusercontent.com",window.dropboxClientAppKey="36ipz29apw2svq8",window.boxClientId="zclwcvudmddhz0cscz3w6awtcfs8bne3",window.braintreeClientToken="production_xv5hxtpx_p8hfn7hqkwk46fwb",window.snowplowCloudfrontServer="c.trello.com";
-    </script>
-
-    <script>window.locale="en-GB";</script>
-    <script type="text/javascript" src="https://d78fikflryjgj.cloudfront.net/js/55b7365e3b2df0fc0b65c0336e00907c/ltp.js" integrity="sha512-J8WoxnNn8PYgSkz9i+BymNwT0PfBLTfp3TAJaYek8Pzp8RVDSm5+wENzi8gzNy8+Xhyd7eel4y/DlfSZlqe/fQ==" crossorigin="anonymous" onerror="_failed(this)"></script>
-    <script type="text/javascript" src="https://d78fikflryjgj.cloudfront.net/js/0ef9d9d0d0f12cda8e0d84a7445472e4/locale.en-GB.js" integrity="sha512-In/8Z7DRpYuFPQndNarBBz1lADrsPhQV0nCm10+ZjeIA1jck5USM3Wfozc9/zR08qI9K0nqDNU88zsC5cJDBPA==" crossorigin="anonymous" onerror="_failed(this)"></script>
-    <script type="text/javascript" src="https://d78fikflryjgj.cloudfront.net/js/3af08da3310cb052bbfbeb1282376bb7/app.js" integrity="sha512-82/8NonUeS4PflfRiVVPdAqDqJsXVDqfrNUSd0h0yCZf05/Tpy9B2wbh1Bow+ENHcH18PB/BposL4hQobplTIA==" crossorigin="anonymous" onerror="_failed(this)"></script>
-    <script>
-        !function(e,t){
-            var s=e.createElement("link");
-            s.href=t,
-                s.rel="stylesheet",
-                s.type="text/css",
-                e.getElementsByTagName("head")[0].appendChild(s)}
-        (document,"https://d78fikflryjgj.cloudfront.net/css/5ab0307715b683217281cc7188cb7192/images.css");</script>
-
-    <link rel="stylesheet" href="https://d78fikflryjgj.cloudfront.net/css/32375d513faf55402ba5fe571690f1cf/core.css" onerror="_failed(this)">
-    <link rel="mask-icon" href="https://d78fikflryjgj.cloudfront.net/images/225c8d1cf8bbf74add43d86f2c84bd28/pinned-tab-icon.svg" color="#0079BF">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://d78fikflryjgj.cloudfront.net/images/ios/0307bc39ec6c9ff499c80e18c767b8b1/apple-touch-icon-152x152-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://d78fikflryjgj.cloudfront.net/images/ios/0dbf6daf256eb7678e5e2185d5146165/apple-touch-icon-144x144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://d78fikflryjgj.cloudfront.net/images/ios/a68051b5c9144abe859ba11e278bbceb/apple-touch-icon-120x120-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://d78fikflryjgj.cloudfront.net/images/ios/7f4a80b64fd8fd99840b1c08d9b45a04/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://d78fikflryjgj.cloudfront.net/images/ios/91a3a04ec68a6090380156f847c082bf/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="https://d78fikflryjgj.cloudfront.net/images/ios/8de2074e8a785dd5d498f8f956267478/apple-touch-icon-precomposed.png">
-    <link type="application/opensearchdescription+xml" rel="search" href="/osd.xml">
 </head>
 
 <body>
-<div id="nocss">
-    Your browser was unable to load all of Trello's resources. They may have been blocked by your firewall, proxy or browser configuration.<br>
-    Press Ctrl+F5 or Ctrl+Shift+R to have your browser try again and if that doesn't work, check out our
-    <a href="http://help.trello.com/article/771-loading-resources-from-trellos-cdn">troubleshooting guide</a>. <hr>
-</div>
-<noscript class="big-message">
-    <h1>To use Trello, please enable JavaScript.</h1>
-</noscript>
-<div id="boards-drawer"></div>
-<p id="notification"></p>
-
+<!--div class="next">next</div-->
 <div id="surface">
-    <div id="header"></div>
-    <div id="content">
-        <div id="contact-us" style="display:none">
-            If you're having trouble loading Trello, <a href="http://help.trello.com/article/736-troubleshooting-browser-issues-with-trello" target="support">check out our troubleshooting guide</a> or <a href="/contact?context=load-failure&source=from%20in%20app%20footer" target="contact">contact us</a>!
-        </div>
+    <div id="header">
+        <a class="header-logo" href="board">
+            <span class="header-logo-default"></span>
+        </a>
     </div>
+    <div id="content">
+        <div class="board-wrapper">
+            <div class="board-main-content">
+                <div class="board-header">
+                    <a class="board-header-btn-name">
+                        <span class="board-header-btn-text">{{board.title}}</span>
+                    </a>
+                </div>
+                <div class="board-canvas">
+                    <div id="board">
+                        <!--div class="list-wrapper">
+                            <div class="list">
+                                <div class="list-header">
+                                    <div class="list-title">title</div>
+                                </div>
+                                <div class="cards">
+                                    <div class="card">
+                                        <div class="card-title">title</div>
+                                        <div class="card-delete">X</div>
+                                    </div>
+                                    <div class="composer">
+                                        <input class="add-title" type="text" name="title" placeholder="Add a card" />
+                                        <div>
+                                            <input class="add-card" type="submit" value="Add" />
+                                        </div>
+                                        <div class="list-delete">X</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div-->
+                        <div class="add-list list-wrapper">
+                            <form id="save" method="post">
+                                <input class="list-name-input" type="text" name="title" placeholder="Add a list..." autocomplete="off"/>
+                                <div class="list-add-controls">
+                                    <input type="submit" value="save"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="board-menu" style="display:none;"></div>
+
+        </div>
+
+    </div>
+
+
 </div>
 
 <div class="window-overlay">
@@ -82,14 +80,263 @@
 </div>
 
 
-<div class="pop-over"></div>
-<div class="tooltip-container"> </div>
-<div id="clipboard-container"> </div>
-<script>var token=document.cookie.split(";").filter(function(t){return new RegExp("^ *token"+document.location.port+"=").test(t)})[0],_qevents=_qevents||[];!function(){var t=document.createElement("script");t.src=("https:"==document.location.protocol?"https://secure":"http://edge")+".quantserve.com/quant.js",t.async=!0,t.type="text/javascript";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();var args={qacct:"p-9tnwrxnK1azF1"};token&&(args.uid=token.split("=")[1].split("%2F")[0]),_qevents.push(args);</script>
-<noscript>
-    <div style="display:none;">
-        <img src="//pixel.quantserve.com/pixel/p-9tnwrxnK1azF1.gif" border="0" height="1" width="1"/>
+<script type="boardTemplate" id="boardTemplate">
+    <div class="board-wrapper">
+        <div class="board-main-content">
+            <div class="board-header">
+                <a class="board-header-btn-name">
+                    <span class="board-header-btn-text">{{board.title}}</span>
+                </a>
+            </div>
+            <div class="board-canvas">
+                <div id="board">
+
+                    <div class="add-list list-wrapper">
+                        <form id="save" method="post">
+                            <input class="list-name-input" type="text" name="title" placeholder="Add a list..." autocomplete="off"/>
+                            <div class="list-add-controls">
+                                <input type="submit" value="save"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="board-menu" style="display:none;"></div>
     </div>
-</noscript>
+</script>
+
+<script type="listTemplate" id="listTemplate">
+    <div class="list">
+        <div class="list-header">
+            <div class="list-title">{{title}}</div>
+        </div>
+        <div class="cards">
+            <div class="composer">
+                <input class="add-title" type="text" name="title" placeholder="Add a card" autocomplete="off"/>
+                <div>
+                    <input class="add-card" type="submit" value="Add" />
+                </div>
+                <div class="list-delete">X</div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!--script type="boardTemplate" id="boardTemplate">
+    <div class="member-board-view">
+        <div class="boards-page-board-section">
+            <div class="boards-page-board-section-header">
+                <h3 class="boards-page-board-section-header-name">Personal Boards</h3>
+            </div>
+            <ul class="boards-page-board-section-list">
+            </ul>
+        </div>
+    </div>
+</script-->
+
+<script type="tileTemplate" id="tileTemplate">
+    <li class="boards-page-board-section-list-item">
+        <a class="board-tile" href="#">
+            <span class="board-tile-fade"></span>
+            <span class="board-tile-detail">
+                <span class="board-tile-details-name">{{board-title}}</span>
+            </span>
+        </a>
+    </li>
+</script>
+
+<script type="overlayTemplate" id="overlayTemplate">
+    <a class="icon-lg icon-close dialog-close-button js-close-window" href="#"></a>
+    <div class="card-detail-window u-clearfix">
+
+        <div class="window-header">
+            <span class="window-header-icon icon-lg icon-card"></span>
+            <div class="window-title">
+                <h2 class="card-detail-title-assist js-title-helper" dir="auto">1주차 과제</h2>
+                <!--textarea class="mod-card-back-title js-card-detail-title-input" dir="auto" style="overflow: hidden; word-wrap: break-word; height: 30px;"></textarea-->
+            </div>
+            <div class="window-header-inline-content quiet js-current-list">
+                <p class="u-inline-block u-bottom">in list <a class="js-open-move-from-header" href="#">Done</a></p>
+            </div>
+        </div>
+
+        <div class="window-main-col">
+            <div class="card-detail-data u-gutter">
+
+                <div class="card-detail-item card-detail-item-block u-clearfix editable" attr="desc">
+                    <div class="description-content js-desc-content">
+
+                        <p class="u-bottom">
+                            <a class="quiet-button mod-with-image hide-on-edit js-edit-desc js-hide-with-desc hide" href="#">
+                                <span class="icon-sm icon-description quiet-button-icon"></span>&nbsp;Edit the description…</a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="js-plugin-sections"></div>
+
+
+            <div class="window-module add-comment-section"><div class="window-module-title window-module-title-no-divider">
+                <span class="window-module-title-icon icon-lg icon-comment"></span>
+                <h3>Add Comment</h3>
+                <span class="editing-members js-editing-members hide"></span>
+            </div>
+                <div class="new-comment js-new-comment">
+                    <div class="member member-no-menu">
+                        <span class="member-initials" title="Eom Ho Kyeong (latilt)">EHK</span>
+                        <span class="member-gold-badge" title="This member has Trello Gold."></span>
+                    </div>
+                    <form>
+                        <div class="comment-frame">
+                            <div class="comment-box">
+                                <textarea class="comment-box-input js-new-comment-input" placeholder="Write a comment…" tabindex="1" dir="auto" style="overflow: hidden; word-wrap: break-word; height: 75px;"></textarea>
+                                <div class="comment-box-options">
+                                    <a class="comment-box-options-item js-comment-add-attachment" href="#" title="Add an attachment…">
+                                        <span class="icon-sm icon-attachment"></span>
+                                    </a>
+                                    <a class="comment-box-options-item js-comment-mention-member" href="#" title="Mention a member…">
+                                        <span class="icon-sm icon-mention"></span>
+                                    </a>
+                                    <a class="comment-box-options-item js-comment-add-emoji" href="#" title="Add emoji…">
+                                        <span class="icon-sm icon-emoji"></span>
+                                    </a>
+                                    <a class="comment-box-options-item js-comment-add-card" href="#" title="Add card…">
+                                        <span class="icon-sm icon-card"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-controls u-clearfix">
+                            <input class="primary confirm mod-no-top-bottom-margin js-add-comment" disabled="" type="submit" value="Send" tabindex="3" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="window-module">
+                <div class="window-module-title window-module-title-no-divider">
+                    <span class="window-module-title-icon icon-lg icon-activity"></span>
+                    <h3>Activity</h3>
+                    <div class="window-module-title-options">
+                        <a class="quiet hide js-show-details" href="#">Show Details</a>
+                        <a class="quiet js-hide-details" href="#">Hide Details</a>
+                    </div>
+                </div>
+                <div class="js-list-actions">
+                    <div class="phenom mod-other-type">
+                        <div class="phenom-creator">
+                            <div class="member js-show-mem-menu" idmember="534fb6c3a161db0868062335">
+                                <span class="member-initials" title="Eom Ho Kyeong (latilt)">EHK</span>
+                                <span class="member-gold-badge" title="This member has Trello Gold."></span>
+                            </div>
+                        </div>
+                        <div class="phenom-desc">
+                            <span class="inline-member js-show-mem-menu" idmember="534fb6c3a161db0868062335">
+                                <span class="u-font-weight-bold">Eom Ho Kyeong</span>
+                            </span> moved this card from To Do to Done
+                        </div>
+                        <p class="phenom-meta quiet">
+                            <a class="date js-hide-on-sending js-highlight-link" dt="2017-01-15T05:32:47.299Z" href="/c/Fkg8fdTI/4-1#action-587b097fc7a7aa9c9323d190" title="15 January 2017 14:32">15 Jan at 14:32</a>
+                            <span class="js-spinner hide">
+                                <span class="spinner spinner--inline mod-left small"></span> Sending…</span>
+                            <span class="js-hide-on-sending"></span>
+                        </p>
+                    </div>
+                    <div class="phenom mod-other-type">
+                        <div class="phenom-creator">
+                            <div class="member js-show-mem-menu" idmember="534fb6c3a161db0868062335">
+                                <span class="member-initials" title="Eom Ho Kyeong (latilt)">EHK</span>
+                                <span class="member-gold-badge" title="This member has Trello Gold."></span>
+                            </div>
+                        </div>
+                        <div class="phenom-desc">
+                            <span class="inline-member js-show-mem-menu" idmember="534fb6c3a161db0868062335">
+                                <span class="u-font-weight-bold">Eom Ho Kyeong</span>
+                            </span> added this card to To Do</div>
+                        <p class="phenom-meta quiet">
+                            <a class="date js-hide-on-sending js-highlight-link" dt="2017-01-15T05:32:13.816Z" href="/c/Fkg8fdTI/4-1#action-587b095d6232d2248338f216" title="15 January 2017 14:32">15 Jan at 14:32</a>
+                            <span class="js-spinner hide">
+                                <span class="spinner spinner--inline mod-left small"></span> Sending…</span>
+                            <span class="js-hide-on-sending"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="spinner loading js-loading-card-actions" style="display: none;"></div>
+                <p class="u-bottom">
+                    <a class="show-more hide js-show-all-actions" href="#">Show all actions…</a>
+                </p>
+            </div>
+            <div class="attach">
+                <form id="attachFile" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" />
+                    <input type="submit" value="send" />
+                </form>
+            </div>
+
+            <div class="images">
+
+            </div>
+        </div>
+
+
+
+        <div class="window-sidebar">
+            <div class="window-module u-clearfix">
+                <h3>Add</h3>
+                <div class="u-clearfix">
+                    <a class="button-link js-change-card-members" href="#">
+                        <span class="icon-sm icon-member"></span>&nbsp;Members</a>
+                    <a class="button-link js-edit-labels" href="#">
+                        <span class="icon-sm icon-label"></span>&nbsp;Labels</a>
+                    <a class="button-link js-add-checklist-menu" href="#">
+                        <span class="icon-sm icon-checklist"></span>&nbsp;Checklist</a>
+                    <a class="button-link js-add-due-date" href="#">
+                        <span class="icon-sm icon-clock"></span>&nbsp;Due Date</a>
+                    <a class="button-link js-attach" href="#">
+                        <span class="icon-sm icon-attachment"></span>&nbsp;Attachment</a>
+                </div>
+            </div>
+            <div class="js-plugin-buttons">
+                <div class="window-module u-clearfix hide">
+                    <h3>Power-Ups</h3>
+                    <div class="u-clearfix js-button-list"></div>
+                </div>
+            </div>
+            <div class="window-module other-actions u-clearfix">
+                <h3>Actions</h3>
+                <div class="u-clearfix">
+                    <a class="button-link js-move-card" href="#">
+                        <span class="icon-sm icon-move"></span>&nbsp;Move</a>
+                    <a class="button-link js-copy-card" href="#">
+                        <span class="icon-sm icon-card"></span>&nbsp;Copy</a>
+                    <div class="js-subscribe-sidebar-button">
+                        <a class="button-link js-subscribe" title="Subscribe to the card to get notifications when something changes.">
+                            <span class="icon-sm icon-subscribe"></span>&nbsp;Subscribe
+                            <span class="on">
+                            <span class="icon-sm icon-check light"></span>
+                        </span>
+                        </a>
+                    </div>
+                    <div class="js-vote-sidebar-button"></div>
+                    <hr />
+                    <a class="button-link js-archive-card" href="#">
+                        <span class="icon-sm icon-archive"></span>&nbsp;Archive</a>
+                    <a class="button-link js-unarchive-card hide" href="#">
+                        <span class="icon-sm icon-refresh"></span>&nbsp;Send to board</a>
+                    <a class="button-link negate hide js-delete-card" href="#">
+                        <span class="icon-sm icon-remove"></span>&nbsp;Delete</a>
+                </div>
+            </div>
+            <div class="window-module u-clearfix">
+                <p class="quiet u-bottom">
+                    <a class="quiet-button js-more-menu" href="#">Share and more…</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</script>
 </body>
 </html>

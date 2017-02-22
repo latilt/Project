@@ -6,8 +6,10 @@ import com.example.domain.Lists;
 import com.example.service.BoardService;
 import com.example.service.CardService;
 import com.example.service.ListsService;
+import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +23,11 @@ public class HomeController {
     private BoardService boardService;
     private ListsService listsService;
     private CardService cardService;
+    private UserService userService;
 
    @Autowired
-   public HomeController(BoardService boardService, ListsService listsService, CardService cardService) {
+   public HomeController(UserService userService, BoardService boardService, ListsService listsService, CardService cardService) {
+       this.userService = userService;
        this.boardService = boardService;
        this.listsService = listsService;
        this.cardService = cardService;
@@ -51,14 +55,20 @@ public class HomeController {
     }*/
 
 
-    @RequestMapping("/{id}")
+    /*@RequestMapping("/{id}")
     public String index() {
         return "index";
-    }
+    }*/
 
     @RequestMapping("/board")
     public String board() {
         return "post/board";
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String mainPage(@PathVariable String username, Model model) {
+        model.addAttribute("users", userService.getUserBoard(username));
+        return "index";
     }
 
 }
