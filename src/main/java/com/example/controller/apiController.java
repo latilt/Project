@@ -9,12 +9,17 @@ import com.example.service.CardService;
 import com.example.service.ListsService;
 import com.example.service.UserService;
 import com.example.storage.StorageService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hokyeong on 2017. 2. 7..
@@ -106,8 +111,32 @@ public class apiController {
     }
 
     @RequestMapping(value="/file/send", method = RequestMethod.POST)
-    public String sendFile(@RequestParam("file") MultipartFile file) {
+    public @ResponseBody String sendFile(@RequestParam("file") MultipartFile file) {
         storageService.store(file);
-        return "send Done";
+
+        Map<String, String> filePath = new HashMap<>();
+        filePath.put("url", String.valueOf(storageService.load(file.getOriginalFilename())));
+        try {
+            filePath.put("bytes", String.valueOf(file.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        filePath.put("size", String.valueOf(file.getSize()));
+
+        filePath.put("name", file.getName());
+        filePath.put("content-type", file.getContentType());
+        try {
+            filePath.put("inputStream", String.valueOf(file.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(filePath);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

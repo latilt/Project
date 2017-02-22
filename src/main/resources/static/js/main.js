@@ -20,16 +20,17 @@ document.addEventListener("DOMContentLoaded", function() {
 var file = {
     sendFile : function(evt) {
         evt.preventDefault();
-        console.log(evt.target);
         if(evt.target.id !== 'attachFile' ) return;
-
 
         var formData = new FormData(evt.target);
         //var formData = new FormData(document.querySelector("#attachFile"));
         var ajax = new XMLHttpRequest();
         ajax.addEventListener("load", function(res) {
             if(res.target.status === 200) {
-                console.log("ajax ok");
+                var json = JSON.parse(res.target.response);
+                var url = json.url.match(/images\W\w+\W\w+/);
+                var images = document.querySelector(".images");
+                images.style.backgroundImage = "url('" + url + "')";
             }
         });
         ajax.open("POST", "http://localhost:8080/file/send");
