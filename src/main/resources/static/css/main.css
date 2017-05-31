@@ -131,6 +131,7 @@ ul {
     position: absolute;
     bottom: 2px;
     right: 6px;
+    cursor: pointer;
 }
 
 .composer {
@@ -142,7 +143,10 @@ ul {
     position: absolute;
     bottom: 2px;
     right: 6px;
+    cursor: pointer;
 }
+
+
 
 .add-list {
     background-color: #e2e4e6;
@@ -243,6 +247,14 @@ ul {
 .board-title {
     height: 30px;
     line-height: 30px;
+    width: 100%;
+    background-color: #aaa;
+    border: none;
+    border-radius: 3px;
+}
+
+.board-create-controls {
+    margin-top: 5px;
 }
 
 .placeholder {
@@ -516,4 +528,23 @@ ul {
 
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.board-tile-detail {
+    display: block;
+    min-height: 5pc;
+    padding-right: 36px;
+    position: relative;
+}
+
+#board-create {
+    background-color: #E2E4E6;
+    color: #8c8c8c;
+    display: table-cell;
+    height: 6pc;
+    font-weight: 400;
+    vertical-align: middle;
+    width: inherit;
+    padding: 0 5px;
+    border-radius: 3px;
 }

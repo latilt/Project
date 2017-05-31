@@ -19,7 +19,7 @@ var board = {
         var boardTitle = evt.target.querySelector(".board-title");
         if(boardTitle.value.length === 0) return;
 
-        var username = document.querySelector(".boards-page-board-section-header-name").innerText;
+        var username = document.querySelector(".boards-page-board-section-header-name").innerText.match(/\w+/);
 
         var ajax = new XMLHttpRequest();
         ajax.addEventListener("load", function(res) {
@@ -62,7 +62,7 @@ var file = {
                 var json = JSON.parse(res.target.response);
                 var url = json.url.match(/images\W\w+\W\w+/);
                 var images = document.querySelector(".images");
-
+                //images.style.backgroundImage = "url('" + url + "')";
                 setTimeout(function() {
                     images.style.backgroundImage = "url('" + url + "')";
                 }, 5000);
